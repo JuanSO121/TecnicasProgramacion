@@ -18,13 +18,19 @@ public class Administrador {
 
     private Integer idAdministrador;
 
+    @Column(nullable = false, length = 50)
     private String nomAdmin;
+
+    @Column(nullable = false, length = 50)
     private String apeAdmin;
+
+    @Column
     private Integer salarioAdmin;
+
+    @Column(nullable = false, length = 10)
     private String telAdministrador;
 /*
     @OneToMany(mappedBy = "idadministrador")
     private List<CuentaBancaria> cuentasBancarias;
-    
   */
 }

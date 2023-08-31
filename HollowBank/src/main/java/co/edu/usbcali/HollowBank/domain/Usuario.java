@@ -26,7 +26,7 @@ public class Usuario {
     @Column(nullable = false, length = 50)
     private String direUsuario;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 10)
     private String telUsuario;
 /*
     @OneToMany(mappedBy = "usuario")

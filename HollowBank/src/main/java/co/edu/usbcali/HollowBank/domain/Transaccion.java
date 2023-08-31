@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -32,7 +34,7 @@ public class Transaccion {
     private Integer monto;
 
     @Column(length = 8)
-    private String fechaTransaccion;
+    private Timestamp fechaTransaccion;
 
     @Column
     private String tipotransaccion;
