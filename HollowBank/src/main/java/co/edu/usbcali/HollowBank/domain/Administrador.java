@@ -25,5 +25,6 @@ public class Administrador {
 /*
     @OneToMany(mappedBy = "idadministrador")
     private List<CuentaBancaria> cuentasBancarias;
+    
   */
 }
