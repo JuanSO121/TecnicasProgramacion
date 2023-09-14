@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CuentaBancariaDTO {
     private Integer idCuentaBancaria;
-    private Usuario usuario;
+    private String idUsuario;
     private String nomUsuario;
     private String apeUsuario;
     private Integer saldo;

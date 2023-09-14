@@ -9,7 +9,7 @@ public class CuentaBancariaMapper {
     public static CuentaBancaria dtoToDomain(CuentaBancariaDTO cuentaBancariaDTO){
         return CuentaBancaria.builder()
                 .idCuentaBancaria(cuentaBancariaDTO.getIdCuentaBancaria())
-                .usuario(cuentaBancariaDTO.getUsuario())
+                //.usuario(cuentaBancariaDTO.getUsuario())
                 .nomUsuario(cuentaBancariaDTO.getNomUsuario())
                 .apeUsuario(cuentaBancariaDTO.getApeUsuario())
                 .saldo(cuentaBancariaDTO.getSaldo())
@@ -19,7 +19,7 @@ public class CuentaBancariaMapper {
     public static CuentaBancariaDTO domainToDto(CuentaBancaria cuentaBancaria){
         return CuentaBancariaDTO.builder()
                 .idCuentaBancaria(cuentaBancaria.getIdCuentaBancaria())
-                .usuario(cuentaBancaria.getUsuario())
+                //.usuario(cuentaBancaria.getUsuario())
                 .nomUsuario(cuentaBancaria.getNomUsuario())
                 .apeUsuario(cuentaBancaria.getApeUsuario())
                 .saldo(cuentaBancaria.getSaldo())
