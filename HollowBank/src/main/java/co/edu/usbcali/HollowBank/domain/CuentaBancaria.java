@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -16,25 +18,27 @@ public class CuentaBancaria {
     @Id
     @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idCuentaBancaria;
+    private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "idUsuario", referencedColumnName = "idUsuario",nullable = false)
+    @JoinColumn(name = "usua_id", referencedColumnName = "id",nullable = false)
     private Usuario usuario;
 
     @Column(nullable = false, length = 50)
-    private String nomUsuario;
+    private String nombre;
 
     @Column(nullable = false, length = 50)
-    private String apeUsuario;
+    private String apellido;
 
-    @Column
-    private Integer saldo;
-/*
+    @Column(length = 19, precision = 2)
+    private BigDecimal saldo;
+
+    @ManyToOne
+    @JoinColumn(name = "admi_id", referencedColumnName = "id",nullable = false)
+    private Administrador administrador;
+
+    /*
     @OneToMany(mappedBy = "idcuentaBancaria")
     private List<Transaccion> transacciones;
 */
-    @ManyToOne
-    @JoinColumn(name = "idAdministrador", referencedColumnName = "idAdministrador",nullable = false)
-    private Administrador administrador;
 }

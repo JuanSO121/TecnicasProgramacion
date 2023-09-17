@@ -6,21 +6,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AdministradorDTO {
+public class PrestamoDTO {
     private Integer id;
 
-    private String nombre;
+    private Integer usuarioId;
 
-    private String apellido;
+    private String servicio;
 
-    private BigDecimal salario;
+    private BigDecimal monto;
 
-    private String telefono;
+    private Timestamp fecha;
 
 }
-

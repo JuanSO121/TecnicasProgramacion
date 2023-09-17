@@ -10,14 +10,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UsuarioDTO {
-    private Integer idUsuario;
+    private Integer id;
 
-    private String nomUsuario;
+    private String nombre;
 
-    private String apeUsuario;
+    private String apellido;
 
-    private String direUsuario;
+    private String direccion;
 
-    private String telUsuario;
+    private String telefono;
 
 }

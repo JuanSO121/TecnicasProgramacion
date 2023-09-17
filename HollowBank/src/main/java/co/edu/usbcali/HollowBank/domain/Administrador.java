@@ -1,9 +1,12 @@
 package co.edu.usbcali.HollowBank.domain;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
 
 @Data
 @Builder
@@ -11,24 +14,24 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "administradores")
+
 public class Administrador {
     @Id
     @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-    private Integer idAdministrador;
-
-    @Column(nullable = false, length = 50)
-    private String nomAdmin;
+    private Integer id;
 
     @Column(nullable = false, length = 50)
-    private String apeAdmin;
+    private String nombre;
+
+    @Column(nullable = false, length = 50)
+    private String apellido;
 
     @Column
-    private Integer salarioAdmin;
+    private BigDecimal salario;
 
     @Column(nullable = false, length = 10)
-    private String telAdministrador;
+    private String telefono;
 /*
     @OneToMany(mappedBy = "idadministrador")
     private List<CuentaBancaria> cuentasBancarias;

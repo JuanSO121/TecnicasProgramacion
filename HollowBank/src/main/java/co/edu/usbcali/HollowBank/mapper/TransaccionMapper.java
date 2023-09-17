@@ -8,25 +8,25 @@ import java.util.List;
 public class TransaccionMapper {
     public static Transaccion dtoToDomain(TransaccionDTO transaccionDTO){
         return Transaccion.builder()
-                .idTransaccion(transaccionDTO.getIdTransaccion())
-                //.cuentaBancaria(transaccionDTO.getCuentaBancariaId())
-                //.usuario(transaccionDTO.getUsuarioId())
+                .id(transaccionDTO.getId())
                 .monto(transaccionDTO.getMonto())
-                .fechaTransaccion(transaccionDTO.getFechaTransaccion())
-                .tipotransaccion(transaccionDTO.getTipotransaccion())
-                .estadotransaccion(transaccionDTO.getEstadotransaccion())
+                .fecha(transaccionDTO.getFecha())
+                .tipo(transaccionDTO.getTipo())
+                .estado(transaccionDTO.getEstado())
                 .build();
     }
 
     public static TransaccionDTO domainToDto(Transaccion transaccion){
         return TransaccionDTO.builder()
-                .idTransaccion(transaccion.getIdTransaccion())
-                //.cuentaBancaria(transaccion.getCuentaBancariaId())
-                //.usuario(transaccion.getUsuarioId())
+                .id(transaccion.getId())
+                .cuentaBancariaId((transaccion.getCuentaBancaria() == null) ? null :
+                        transaccion.getCuentaBancaria().getId())
+                .usuarioId((transaccion.getUsuario() == null) ? null :
+                        transaccion.getUsuario().getId())
                 .monto(transaccion.getMonto())
-                .fechaTransaccion(transaccion.getFechaTransaccion())
-                .tipotransaccion(transaccion.getTipotransaccion())
-                .estadotransaccion(transaccion.getEstadotransaccion())
+                .fecha(transaccion.getFecha())
+                .tipo(transaccion.getTipo())
+                .estado(transaccion.getEstado())
                 .build();
     }
 

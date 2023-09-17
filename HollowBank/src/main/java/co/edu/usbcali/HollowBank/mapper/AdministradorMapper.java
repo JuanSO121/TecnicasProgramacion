@@ -8,21 +8,21 @@ import java.util.List;
 public class AdministradorMapper {
     public static Administrador dtoToDomain(AdministradorDTO administradorDTO){
         return Administrador.builder()
-                .idAdministrador(administradorDTO.getIdAdministrador())
-                .nomAdmin(administradorDTO.getNomAdmin())
-                .apeAdmin(administradorDTO.getApeAdmin())
-                .salarioAdmin(administradorDTO.getSalarioAdmin())
-                .telAdministrador(administradorDTO.getTelAdministrador())
+                .id(administradorDTO.getId())
+                .nombre(administradorDTO.getNombre())
+                .apellido(administradorDTO.getApellido())
+                .salario(administradorDTO.getSalario())
+                .telefono(administradorDTO.getTelefono())
                 .build();
     }
 
     public static AdministradorDTO domainToDto(Administrador administrador){
         return AdministradorDTO.builder()
-                .idAdministrador(administrador.getIdAdministrador())
-                .nomAdmin(administrador.getNomAdmin())
-                .apeAdmin(administrador.getApeAdmin())
-                .salarioAdmin(administrador.getSalarioAdmin())
-                .telAdministrador(administrador.getTelAdministrador())
+                .id(administrador.getId())
+                .nombre(administrador.getNombre())
+                .apellido(administrador.getApellido())
+                .salario(administrador.getSalario())
+                .telefono(administrador.getTelefono())
                 .build();
     }
 
@@ -30,7 +30,7 @@ public class AdministradorMapper {
         return administradorDTOS.stream().map(AdministradorMapper::dtoToDomain).toList();
     }
 
-    public static List<AdministradorDTO> domainToDtoList(List<Administrador> administrador){
-        return administrador.stream().map(AdministradorMapper::domainToDto).toList();
+    public static List<AdministradorDTO> domainToDtoList(List<Administrador> administradors){
+        return administradors.stream().map(AdministradorMapper::domainToDto).toList();
     }
 }

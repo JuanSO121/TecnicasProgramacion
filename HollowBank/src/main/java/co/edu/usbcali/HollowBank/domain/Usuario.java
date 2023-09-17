@@ -15,25 +15,24 @@ public class Usuario {
     @Id
     @Column(nullable = false, length = 10)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idUsuario;
+    private Integer id;
 
     @Column(nullable = false, length = 50)
-    private String nomUsuario;
+    private String nombre;
 
     @Column(nullable = false, length = 50)
-    private String apeUsuario;
+    private String apellido;
 
     @Column(nullable = false, length = 50)
-    private String direUsuario;
+    private String direccion;
 
     @Column(nullable = false, length = 10)
-    private String telUsuario;
+    private String telefono;
 /*
     @OneToMany(mappedBy = "usuario")
     private List<CuentaBancaria> cuentasBancarias;
 
     @OneToMany(mappedBy = "usuario")
     private List<Transaccion> transacciones;
-
  */
 }

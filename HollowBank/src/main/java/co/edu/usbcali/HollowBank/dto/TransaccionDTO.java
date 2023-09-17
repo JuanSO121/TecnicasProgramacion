@@ -1,11 +1,14 @@
 package co.edu.usbcali.HollowBank.dto;
 
 
+import co.edu.usbcali.HollowBank.domain.CuentaBancaria;
+import co.edu.usbcali.HollowBank.domain.Usuario;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Data
@@ -13,18 +16,18 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TransaccionDTO {
-    private Integer idTransaccion;
+    private Integer id;
 
-    private Integer CuentaBancariaId;
+    private Integer cuentaBancariaId;
 
-    private Integer UsuarioId;
+    private Integer usuarioId;
 
-    private Integer monto;
+    private BigDecimal monto;
 
-    private Timestamp fechaTransaccion;
+    private Timestamp fecha;
 
-    private String tipotransaccion;
+    private String tipo;
 
-    private String estadotransaccion;
+    private String estado;
 
 }

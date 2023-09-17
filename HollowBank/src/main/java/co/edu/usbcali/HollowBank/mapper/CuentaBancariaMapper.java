@@ -8,21 +8,24 @@ import java.util.List;
 public class CuentaBancariaMapper {
     public static CuentaBancaria dtoToDomain(CuentaBancariaDTO cuentaBancariaDTO){
         return CuentaBancaria.builder()
-                .idCuentaBancaria(cuentaBancariaDTO.getIdCuentaBancaria())
+                .id(cuentaBancariaDTO.getId())
                 //.usuario(cuentaBancariaDTO.getUsuario())
-                .nomUsuario(cuentaBancariaDTO.getNomUsuario())
-                .apeUsuario(cuentaBancariaDTO.getApeUsuario())
+                .nombre(cuentaBancariaDTO.getNombre())
+                .apellido(cuentaBancariaDTO.getApellido())
                 .saldo(cuentaBancariaDTO.getSaldo())
                 .build();
     }
 
     public static CuentaBancariaDTO domainToDto(CuentaBancaria cuentaBancaria){
         return CuentaBancariaDTO.builder()
-                .idCuentaBancaria(cuentaBancaria.getIdCuentaBancaria())
-                //.usuario(cuentaBancaria.getUsuario())
-                .nomUsuario(cuentaBancaria.getNomUsuario())
-                .apeUsuario(cuentaBancaria.getApeUsuario())
+                .id(cuentaBancaria.getId())
+                .usuarioId((cuentaBancaria.getUsuario() == null) ? null :
+                        cuentaBancaria.getUsuario().getId())
+                .nombre(cuentaBancaria.getNombre())
+                .apellido(cuentaBancaria.getApellido())
                 .saldo(cuentaBancaria.getSaldo())
+                .administradorId((cuentaBancaria.getAdministrador() == null) ? null :
+                        cuentaBancaria.getAdministrador().getId())
                 .build();
     }
 

@@ -6,16 +6,23 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class CuentaBancariaDTO {
-    private Integer idCuentaBancaria;
-    private String idUsuario;
-    private String nomUsuario;
-    private String apeUsuario;
-    private Integer saldo;
+    private Integer id;
 
-    private Integer AdministradorId;
+    private Integer usuarioId;
+
+    private String nombre;
+
+    private String apellido;
+
+    private BigDecimal saldo;
+
+    private Integer administradorId;
+
 }

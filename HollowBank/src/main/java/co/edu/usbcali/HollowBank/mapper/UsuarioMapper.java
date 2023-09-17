@@ -10,21 +10,21 @@ import java.util.List;
 public class UsuarioMapper {
     public static Usuario dtoToDomain(UsuarioDTO usuarioDTO){
         return Usuario.builder()
-                .idUsuario(usuarioDTO.getIdUsuario())
-                .nomUsuario(usuarioDTO.getNomUsuario())
-                .apeUsuario(usuarioDTO.getApeUsuario())
-                .direUsuario(usuarioDTO.getDireUsuario())
-                .telUsuario(usuarioDTO.getTelUsuario())
+                .id(usuarioDTO.getId())
+                .nombre(usuarioDTO.getNombre())
+                .apellido(usuarioDTO.getApellido())
+                .direccion(usuarioDTO.getDireccion())
+                .telefono(usuarioDTO.getTelefono())
                 .build();
     }
 
     public static UsuarioDTO domainToDto(Usuario usuario){
         return UsuarioDTO.builder()
-                .idUsuario(usuario.getIdUsuario())
-                .nomUsuario(usuario.getNomUsuario())
-                .apeUsuario(usuario.getApeUsuario())
-                .direUsuario(usuario.getDireUsuario())
-                .telUsuario(usuario.getTelUsuario())
+                .id(usuario.getId())
+                .nombre(usuario.getNombre())
+                .apellido(usuario.getApellido())
+                .direccion(usuario.getDireccion())
+                .telefono(usuario.getTelefono())
                 .build();
     }
 

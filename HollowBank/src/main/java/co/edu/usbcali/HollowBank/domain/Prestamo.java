@@ -1,5 +1,4 @@
 package co.edu.usbcali.HollowBank.domain;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,22 +13,19 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "transacciones")
-
-public class Transaccion {
-
+@Table(name = "prestamos")
+public class Prestamo {
     @Id
     @Column(nullable = false, length = 10)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "cuent_id", referencedColumnName = "id",nullable = false)
-    private CuentaBancaria cuentaBancaria;
-
-    @ManyToOne
     @JoinColumn(name = "usua_id", referencedColumnName = "id",nullable = false)
     private Usuario usuario;
+
+    @Column(nullable = false, length = 50)
+    private String servicio;
 
     @Column(length = 19, precision = 2, nullable = false)
     private BigDecimal monto;
@@ -37,9 +33,5 @@ public class Transaccion {
     @Column(length = 10, nullable = false)
     private Timestamp fecha;
 
-    @Column(length = 10, nullable = false)
-    private String tipo;
 
-    @Column(length = 10, nullable = false)
-    private String estado;
 }
