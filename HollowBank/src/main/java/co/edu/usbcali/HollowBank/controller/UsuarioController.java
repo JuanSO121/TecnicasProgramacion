@@ -4,6 +4,7 @@ import co.edu.usbcali.HollowBank.domain.Usuario;
 import co.edu.usbcali.HollowBank.dto.UsuarioDTO;
 import co.edu.usbcali.HollowBank.mapper.UsuarioMapper;
 import co.edu.usbcali.HollowBank.repository.UsuarioRepository;
+import co.edu.usbcali.HollowBank.service.UsuarioService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +15,12 @@ import java.util.List;
 @RequestMapping("/usuario")
 public class UsuarioController {
 
+    private final UsuarioService usuarioService;
     private final UsuarioRepository usuarioRepository;
 
 
-    public UsuarioController(UsuarioRepository usuarioRepository) {
+    public UsuarioController(UsuarioService usuarioService, UsuarioRepository usuarioRepository) {
+        this.usuarioService = usuarioService;
         this.usuarioRepository = usuarioRepository;
     }
 
@@ -31,6 +34,14 @@ public class UsuarioController {
     //Spring Boot automáticamente serializará la lista de objetos Usuario en formato JSON y los enviará como respuesta
     public List<Usuario> obtenerTodos(){
         return usuarioRepository.findAll();
+    }
+
+    @PostMapping("/guardar")
+    public ResponseEntity<UsuarioDTO> guardarUsuario(@RequestBody UsuarioDTO usuarioDTO) throws Exception {
+
+        UsuarioDTO usuarioDTO1 = usuarioService.guardarNuevoUsuario(usuarioDTO);
+
+        return new ResponseEntity<>(usuarioDTO1, HttpStatus.OK);
     }
 
     @GetMapping("/porId/{id}")
