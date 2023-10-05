@@ -12,6 +12,7 @@ public class PagoServicioMapper {
                 .servicio(pagoServicioDTO.getServicio())
                 .monto(pagoServicioDTO.getMonto())
                 .fecha(pagoServicioDTO.getFecha())
+                .referencia(pagoServicioDTO.getReferencia())
                 .build();
     }
 
@@ -23,6 +24,7 @@ public class PagoServicioMapper {
                 .servicio(pagoServicio.getServicio())
                 .monto(pagoServicio.getMonto())
                 .fecha(pagoServicio.getFecha())
+                .referencia(pagoServicio.getReferencia())
                 .build();
     }
 

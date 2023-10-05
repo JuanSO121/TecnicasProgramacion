@@ -46,4 +46,7 @@ public class Transaccion {
 
     @Column(length = 10, nullable = false)
     private String estado;
+
+    @Column(nullable = false, length = 10)
+    private String referencia;
 }

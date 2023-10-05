@@ -45,6 +45,10 @@ public class PrestamoSericeImpl implements PrestamoService {
             throw new Exception("Estado Vacio");
         }
 
+        if (prestamoDTO.getReferencia() == null || prestamoDTO.getReferencia().trim().isEmpty()) {
+            throw new Exception("Referencia vacía");
+        }
+
         //2. registrar el prestamo en DB Mapeando desde DTO hacia DOMAIN
         // convertir el prestamo dto a un objeto del dominio
         Prestamo prestamo = PrestamoMapper.dtoToDomain(prestamoDTO);

@@ -32,4 +32,7 @@ public class Prestamo {
 
     @Column(length = 10, nullable = false)
     private Timestamp fecha;
+
+    @Column(nullable = false, length = 10)
+    private String referencia;
 }

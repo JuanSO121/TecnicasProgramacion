@@ -32,4 +32,6 @@ public class TransaccionDTO {
 
     private String estado;
 
+    private String referencia;
+
 }

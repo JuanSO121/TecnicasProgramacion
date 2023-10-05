@@ -23,4 +23,5 @@ public class PrestamoDTO {
 
     private Timestamp fecha;
 
+    private String referencia;
 }

@@ -22,4 +22,6 @@ public class PagoServicioDTO {
     private BigDecimal monto;
 
     private Timestamp fecha;
+
+    private String referencia;
 }

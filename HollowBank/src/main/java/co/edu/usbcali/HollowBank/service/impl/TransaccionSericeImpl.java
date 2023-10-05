@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 
 @Service
-
 public class TransaccionSericeImpl implements TransaccionService {
     private final TransaccionRepository transaccionRepository;
 
@@ -20,7 +19,7 @@ public class TransaccionSericeImpl implements TransaccionService {
 
     @Override
     public TransaccionDTO guardarNuevaTransaccion(TransaccionDTO transaccionDTO) throws Exception {
-        //1. validar datos transaccion
+        //1. validar DTOs transaccion
         if (transaccionDTO == null){
             throw new Exception("La cuenta Bancaria es Nula");
         }
@@ -36,6 +35,10 @@ public class TransaccionSericeImpl implements TransaccionService {
 
         if (transaccionDTO.getEstado() == null || transaccionDTO.getEstado().trim().isEmpty()) {
             throw new Exception("Estado vacío");
+        }
+
+        if (transaccionDTO.getReferencia() == null || transaccionDTO.getReferencia().trim().isEmpty()) {
+            throw new Exception("Referencia vacía");
         }
 
 

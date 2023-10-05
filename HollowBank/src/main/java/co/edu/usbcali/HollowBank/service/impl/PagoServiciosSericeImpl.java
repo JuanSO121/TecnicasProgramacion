@@ -23,7 +23,7 @@ public class PagoServiciosSericeImpl implements PagoServicioService {
     public PagoServicioDTO guardarNuevoPagoServicio(PagoServicioDTO pagoServicioDTO) throws Exception {
         //1. validar datos pagoServicio
         if (pagoServicioDTO == null){
-            throw new Exception("El pagoServicio es Nulo");
+            throw new Exception("El pagoServicioDTO es Nulo");
         }
 
         if(pagoServicioDTO.getServicio() == null || pagoServicioDTO.getServicio().trim().isEmpty()){
@@ -41,8 +41,8 @@ public class PagoServiciosSericeImpl implements PagoServicioService {
             throw new Exception("Fecha no válida");
         }
 
-        if (pagoServicioDTO.getMonto() == null || pagoServicioDTO.getMonto().compareTo(BigDecimal.ZERO) == 0) {
-            throw new Exception("Monto vacío");
+        if (pagoServicioDTO.getReferencia() == null || pagoServicioDTO.getReferencia().trim().isEmpty()) {
+            throw new Exception("Referencia vacía");
         }
 
         //2. registrar el pagoServicio en DB Mapeando desde DTO hacia DOMAIN
