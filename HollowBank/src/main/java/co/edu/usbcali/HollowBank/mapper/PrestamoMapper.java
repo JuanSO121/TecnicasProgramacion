@@ -12,6 +12,7 @@ public class PrestamoMapper {
                 .monto(prestamoDTO.getMonto())
                 .fecha(prestamoDTO.getFecha())
                 .estado(prestamoDTO.getEstado())
+                .referencia(prestamoDTO.getReferencia())
                 .build();
     }
 
@@ -23,6 +24,7 @@ public class PrestamoMapper {
                 .estado(prestamo.getEstado())
                 .monto(prestamo.getMonto())
                 .fecha(prestamo.getFecha())
+                .referencia(prestamo.getReferencia())
                 .build();
     }
 

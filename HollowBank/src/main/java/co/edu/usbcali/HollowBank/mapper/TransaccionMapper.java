@@ -13,6 +13,7 @@ public class TransaccionMapper {
                 .fecha(transaccionDTO.getFecha())
                 .tipo(transaccionDTO.getTipo())
                 .estado(transaccionDTO.getEstado())
+                .referencia(transaccionDTO.getReferencia())
                 .build();
     }
 
@@ -29,6 +30,7 @@ public class TransaccionMapper {
                 .fecha(transaccion.getFecha())
                 .tipo(transaccion.getTipo())
                 .estado(transaccion.getEstado())
+                .referencia(transaccion.getReferencia())
                 .build();
     }
 

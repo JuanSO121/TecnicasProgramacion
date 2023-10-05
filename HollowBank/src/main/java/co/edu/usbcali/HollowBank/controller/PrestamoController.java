@@ -1,11 +1,10 @@
 package co.edu.usbcali.HollowBank.controller;
 
-import co.edu.usbcali.HollowBank.domain.Prestamo;
-import co.edu.usbcali.HollowBank.repository.PrestamoRepository;
+import co.edu.usbcali.HollowBank.dto.PrestamoDTO;
 import co.edu.usbcali.HollowBank.service.PrestamoService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -14,25 +13,26 @@ import java.util.List;
 
 public class PrestamoController {
 
-    private final PrestamoRepository prestamoRepository;
     private final PrestamoService prestamoService;
 
-    public PrestamoController(PrestamoRepository prestamoRepository, PrestamoService prestamoService) {
-        this.prestamoRepository = prestamoRepository;
+    public PrestamoController(PrestamoService prestamoService) {
         this.prestamoService = prestamoService;
     }
 
+    @PostMapping("/buscarTodos")
+    public ResponseEntity<List<PrestamoDTO>> buscarTodos(){
+        return new ResponseEntity<>(prestamoService.buscarTodos(), HttpStatus.OK);
+    }
+
+    @PostMapping("/guardar")
+    public ResponseEntity<PrestamoDTO> guardarPrestamo(@RequestBody PrestamoDTO prestamoDTO) throws Exception{
+        PrestamoDTO prestamoDTO1 = prestamoService.guardarNuevoPrestamo(prestamoDTO);
+        return new ResponseEntity<>(prestamoDTO1, HttpStatus.OK);
+    }
 
     @GetMapping("/validar")
     public String validarController() {
         return "Controlador Correcto";
-    }
-
-    @GetMapping("/obtenerTodos")
-    //@ResponseBody
-    //Spring Boot automáticamente serializará la lista de objetos Usuario en formato JSON y los enviará como respuesta
-    public List<Prestamo> obtenerTodos(){
-        return prestamoRepository.findAll();
     }
 
 }
