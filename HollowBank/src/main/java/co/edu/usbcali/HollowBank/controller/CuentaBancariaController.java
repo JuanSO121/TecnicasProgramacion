@@ -1,10 +1,12 @@
 package co.edu.usbcali.HollowBank.controller;
 
 import co.edu.usbcali.HollowBank.domain.CuentaBancaria;
+import co.edu.usbcali.HollowBank.dto.CuentaBancariaDTO;
 import co.edu.usbcali.HollowBank.repository.CuentaBancariaRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import co.edu.usbcali.HollowBank.service.CuentaBancariaService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -14,9 +16,12 @@ import java.util.List;
 public class CuentaBancariaController {
 
     private final CuentaBancariaRepository cuentaBancariaRepository;
+    private final CuentaBancariaService cuentaBancariaService;
 
-    public CuentaBancariaController(CuentaBancariaRepository cuentaBancariaRepository) {
+    public CuentaBancariaController(CuentaBancariaService cuentaBancariaService,CuentaBancariaRepository cuentaBancariaRepository) {
+        this.cuentaBancariaService = cuentaBancariaService;
         this.cuentaBancariaRepository = cuentaBancariaRepository;
+
     }
 
 
@@ -31,4 +36,15 @@ public class CuentaBancariaController {
     public List<CuentaBancaria> obtenerTodos() {
         return cuentaBancariaRepository.findAll();
     }
+
+    @PostMapping("/guardar")
+    public ResponseEntity<CuentaBancariaDTO> guardarCuentaBancaria(@RequestBody CuentaBancariaDTO cuentaBancariaDTO) throws Exception {
+
+        CuentaBancariaDTO cuentaBancariaDTO1 = cuentaBancariaService.guardarNuevaCuentaBancaria(cuentaBancariaDTO);
+
+        return new ResponseEntity<>(cuentaBancariaDTO1, HttpStatus.OK);
+    }
+
 }
+
+

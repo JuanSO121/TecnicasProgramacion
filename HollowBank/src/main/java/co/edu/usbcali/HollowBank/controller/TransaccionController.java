@@ -1,10 +1,12 @@
 package co.edu.usbcali.HollowBank.controller;
 
 import co.edu.usbcali.HollowBank.domain.Transaccion;
+import co.edu.usbcali.HollowBank.dto.TransaccionDTO;
 import co.edu.usbcali.HollowBank.repository.TransaccionRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import co.edu.usbcali.HollowBank.service.TransaccionService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -13,10 +15,20 @@ import java.util.List;
 
 public class TransaccionController {
     private final TransaccionRepository transaccionRepository;
+    private final TransaccionService transaccionService;
 
-    public TransaccionController(TransaccionRepository transaccionRepository) {
+    public TransaccionController(TransaccionService transaccionService,TransaccionRepository transaccionRepository) {
         this.transaccionRepository = transaccionRepository;
+        this.transaccionService = transaccionService;
     }
+
+    @PostMapping("/guardar")
+    public ResponseEntity<TransaccionDTO> guardarTransaccion(@RequestBody TransaccionDTO transaccionDTO) throws Exception {
+        TransaccionDTO transaccionDTO1 = transaccionService.guardarNuevaTransaccion(transaccionDTO);
+
+        return new ResponseEntity<>(transaccionDTO1, HttpStatus.OK);
+    }
+
 
 
     @GetMapping("/validar")

@@ -23,6 +23,8 @@ public class TransaccionMapper {
                         transaccion.getCuentaBancaria().getId())
                 .usuarioId((transaccion.getUsuario() == null) ? null :
                         transaccion.getUsuario().getId())
+                .destinatarioId((transaccion.getDestinatario() == null) ? null :
+                        transaccion.getDestinatario().getId())
                 .monto(transaccion.getMonto())
                 .fecha(transaccion.getFecha())
                 .tipo(transaccion.getTipo())

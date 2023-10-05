@@ -22,6 +22,8 @@ public class TransaccionDTO {
 
     private Integer usuarioId;
 
+    private Integer destinatarioId;
+
     private BigDecimal monto;
 
     private Timestamp fecha;

@@ -1,6 +1,7 @@
 package co.edu.usbcali.HollowBank.service.impl;
 
 import co.edu.usbcali.HollowBank.domain.Administrador;
+import co.edu.usbcali.HollowBank.domain.Administrador;
 import co.edu.usbcali.HollowBank.dto.AdministradorDTO;
 import co.edu.usbcali.HollowBank.mapper.AdministradorMapper;
 import co.edu.usbcali.HollowBank.repository.AdministradorRepository;
@@ -8,6 +9,8 @@ import co.edu.usbcali.HollowBank.service.AdministradorService;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.Optional;
 
 @Service
 public class AdministradorServiceImpl implements AdministradorService {
@@ -30,12 +33,15 @@ public class AdministradorServiceImpl implements AdministradorService {
         if (administradorDTO.getApellido() == null || administradorDTO.getApellido().trim().isEmpty()) {
             throw new Exception("apellido vacio");
         }
-        if (administradorDTO.getSalario() == null || administradorDTO.getSalario().compareTo(BigDecimal.ZERO) == 0) {
-            throw new Exception("Salario vacío o igual a cero");
-        }
 
         if (administradorDTO.getTelefono() == null || administradorDTO.getTelefono().trim().isEmpty()) {
             throw new Exception("Telefono vacio");
+        }
+
+        Optional<Administrador> administradorPorNombre = administradorRepository.findAdministradorByNombre(administradorDTO.getNombre());
+        if(administradorPorNombre.isPresent()){
+            throw new Exception(String.format("El administrador con el nombre %s ya se encuentra registrado",
+                    administradorDTO.getNombre()));
         }
 
 

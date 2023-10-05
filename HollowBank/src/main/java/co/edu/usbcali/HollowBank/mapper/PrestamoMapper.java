@@ -9,9 +9,9 @@ public class PrestamoMapper {
     public static Prestamo dtoToDomain(PrestamoDTO prestamoDTO){
         return Prestamo.builder()
                 .id(prestamoDTO.getId())
-                .servicio(prestamoDTO.getServicio())
                 .monto(prestamoDTO.getMonto())
                 .fecha(prestamoDTO.getFecha())
+                .estado(prestamoDTO.getEstado())
                 .build();
     }
 
@@ -20,14 +20,10 @@ public class PrestamoMapper {
                 .id(prestamo.getId())
                 .usuarioId((prestamo.getUsuario() == null) ? null :
                         prestamo.getUsuario().getId())
-                .servicio(prestamo.getServicio())
+                .estado(prestamo.getEstado())
                 .monto(prestamo.getMonto())
                 .fecha(prestamo.getFecha())
                 .build();
-    }
-
-    public static List<Prestamo> dtoToDomainList(List<PrestamoDTO> prestamoDTOS){
-        return prestamoDTOS.stream().map(PrestamoMapper::dtoToDomain).toList();
     }
 
     public static List<PrestamoDTO> domainToDtoList(List<Prestamo> prestamos){

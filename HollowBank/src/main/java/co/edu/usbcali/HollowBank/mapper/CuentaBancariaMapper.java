@@ -29,10 +29,6 @@ public class CuentaBancariaMapper {
                 .build();
     }
 
-    public static List<CuentaBancaria> dtoToDomainList(List<CuentaBancariaDTO> cuentaBancariaDTOS){
-        return cuentaBancariaDTOS.stream().map(CuentaBancariaMapper::dtoToDomain).toList();
-    }
-
     public static List<CuentaBancariaDTO> domainToDtoList(List<CuentaBancaria> cuentaBancarias){
         return cuentaBancarias.stream().map(CuentaBancariaMapper::domainToDto).toList();
     }

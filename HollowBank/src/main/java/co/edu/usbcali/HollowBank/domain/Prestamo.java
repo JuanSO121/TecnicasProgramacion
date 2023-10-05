@@ -25,13 +25,11 @@ public class Prestamo {
     private Usuario usuario;
 
     @Column(nullable = false, length = 50)
-    private String servicio;
+    private String estado;
 
     @Column(length = 19, precision = 2, nullable = false)
     private BigDecimal monto;
 
     @Column(length = 10, nullable = false)
     private Timestamp fecha;
-
-
 }

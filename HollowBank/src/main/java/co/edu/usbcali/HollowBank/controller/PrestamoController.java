@@ -2,6 +2,7 @@ package co.edu.usbcali.HollowBank.controller;
 
 import co.edu.usbcali.HollowBank.domain.Prestamo;
 import co.edu.usbcali.HollowBank.repository.PrestamoRepository;
+import co.edu.usbcali.HollowBank.service.PrestamoService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,10 +15,13 @@ import java.util.List;
 public class PrestamoController {
 
     private final PrestamoRepository prestamoRepository;
+    private final PrestamoService prestamoService;
 
-    public PrestamoController(PrestamoRepository prestamoRepository) {
+    public PrestamoController(PrestamoRepository prestamoRepository, PrestamoService prestamoService) {
         this.prestamoRepository = prestamoRepository;
+        this.prestamoService = prestamoService;
     }
+
 
     @GetMapping("/validar")
     public String validarController() {

@@ -17,7 +17,7 @@ public class PrestamoDTO {
 
     private Integer usuarioId;
 
-    private String servicio;
+    private String estado;
 
     private BigDecimal monto;
 

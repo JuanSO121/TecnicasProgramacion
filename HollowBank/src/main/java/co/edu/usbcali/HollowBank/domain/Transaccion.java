@@ -31,6 +31,10 @@ public class Transaccion {
     @JoinColumn(name = "usua_id", referencedColumnName = "id",nullable = false)
     private Usuario usuario;
 
+    @ManyToOne
+    @JoinColumn(name = "destinatario_id", referencedColumnName = "id",nullable = false)
+    private Usuario destinatario;
+
     @Column(length = 19, precision = 2, nullable = false)
     private BigDecimal monto;
 
