@@ -28,10 +28,6 @@ public class PagoServicioMapper {
                 .build();
     }
 
-    public static List<PagoServicio> dtoToDomainList(List<PagoServicioDTO> pagoServicioDTOS){
-        return pagoServicioDTOS.stream().map(PagoServicioMapper::dtoToDomain).toList();
-    }
-
     public static List<PagoServicioDTO> domainToDtoList(List<PagoServicio> pagoServicios){
         return pagoServicios.stream().map(PagoServicioMapper::domainToDto).toList();
     }

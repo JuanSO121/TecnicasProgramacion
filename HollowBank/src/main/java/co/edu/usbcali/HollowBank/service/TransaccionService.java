@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface TransaccionService {
     public TransaccionDTO guardarNuevaTransaccion(TransaccionDTO transaccionDTO)throws Exception;
-    List<TransaccionDTO> buscarTodos();
+    List<TransaccionDTO> buscarTodas();
 }

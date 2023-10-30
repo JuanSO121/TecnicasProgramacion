@@ -54,10 +54,10 @@ public class TransaccionSericeImpl implements TransaccionService {
         }
 
 
-        //validar si existe la ceuntabancaria
+        //validar si existe la cuentabancaria
         Optional<CuentaBancaria> cuentaBancariaOptional = cuentaBancariaRepository.findById(transaccionDTO.getCuentaBancariaId());
         if (cuentaBancariaOptional.isEmpty()) {
-            throw new Exception(String.format("No se puede realizar la transaccion pues no existe la cuenta bancaria: %s", transaccionDTO.getUsuarioId()));
+            throw new Exception(String.format("No se puede realizar la transacción pues no existe la cuenta bancaria: %s", transaccionDTO.getCuentaBancariaId()));
         }
 
         //validar si existe el usuario
@@ -69,8 +69,9 @@ public class TransaccionSericeImpl implements TransaccionService {
         //validar si existe el destinatario
         Optional<Usuario> destinatarioOptional = usuarioRepository.findById(transaccionDTO.getDestinatarioId());
         if (destinatarioOptional.isEmpty()) {
-            throw new Exception(String.format("No se puede realizar el pago pues no existe el destinatario con id: %s", transaccionDTO.getUsuarioId()));
+            throw new Exception(String.format("No se puede realizar el pago pues no existe el destinatario con id: %s", transaccionDTO.getDestinatarioId()));
         }
+
 
         //Validar no exista un transaccion con la misma referencia
         Optional<Transaccion> transaccionOptional = transaccionRepository.findByReferencia(transaccionDTO.getReferencia());
@@ -82,6 +83,8 @@ public class TransaccionSericeImpl implements TransaccionService {
         // convertir el transaccion dto a un objeto del dominio
         Transaccion transaccion = TransaccionMapper.dtoToDomain(transaccionDTO);
         transaccion.setUsuario(usuarioOptional.get());
+        transaccion.setCuentaBancaria(cuentaBancariaOptional.get());
+        transaccion.setDestinatario(destinatarioOptional.get());
 
         transaccion = transaccionRepository.save(transaccion);
 
@@ -90,7 +93,7 @@ public class TransaccionSericeImpl implements TransaccionService {
         return TransaccionMapper.domainToDto(transaccion);
     }
 
-    public List<TransaccionDTO> buscarTodos(){
+    public List<TransaccionDTO> buscarTodas(){
         return TransaccionMapper.domainToDtoList(transaccionRepository.findAll());
     }
 }

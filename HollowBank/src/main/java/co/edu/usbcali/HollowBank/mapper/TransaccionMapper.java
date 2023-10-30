@@ -34,10 +34,6 @@ public class TransaccionMapper {
                 .build();
     }
 
-    public static List<Transaccion> dtoToDomainList(List<TransaccionDTO> transaccionDTOS){
-        return transaccionDTOS.stream().map(TransaccionMapper::dtoToDomain).toList();
-    }
-
     public static List<TransaccionDTO> domainToDtoList(List<Transaccion> transaccions){
         return transaccions.stream().map(TransaccionMapper::domainToDto).toList();
     }

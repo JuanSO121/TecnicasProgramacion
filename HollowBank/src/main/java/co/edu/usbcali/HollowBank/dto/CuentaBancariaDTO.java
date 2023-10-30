@@ -17,12 +17,10 @@ public class CuentaBancariaDTO {
 
     private Integer usuarioId;
 
-    private String nombre;
-
-    private String apellido;
+    private String tipo;
 
     private BigDecimal saldo;
 
-    private Integer administradorId;
+    private Integer num_cuenta;
 
 }

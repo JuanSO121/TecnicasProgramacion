@@ -24,18 +24,12 @@ public class CuentaBancaria {
     @JoinColumn(name = "usua_id", referencedColumnName = "id",nullable = false)
     private Usuario usuario;
 
-    @Column(nullable = false, length = 50)
-    private String nombre;
-
-    @Column(nullable = false, length = 50)
-    private String apellido;
-
     @Column(length = 19, precision = 2)
     private BigDecimal saldo;
 
-    @ManyToOne
-    @JoinColumn(name = "admi_id", referencedColumnName = "id",nullable = false)
-    private Administrador administrador;
+    @Column(nullable = false, length = 15)
+    private String tipo;
+
 
     /*
     @OneToMany(mappedBy = "idcuentaBancaria")

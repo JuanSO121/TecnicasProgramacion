@@ -20,7 +20,7 @@ public class TransaccionController {
 
     @PostMapping("/buscarTodos")
     public ResponseEntity<List<TransaccionDTO>> buscarTodos(){
-        return new ResponseEntity<>(transaccionService.buscarTodos(), HttpStatus.OK);
+        return new ResponseEntity<>(transaccionService.buscarTodas(), HttpStatus.OK);
     }
 
     @PostMapping("/guardar")

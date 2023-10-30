@@ -2,11 +2,14 @@ package co.edu.usbcali.HollowBank.service.impl;
 
 import co.edu.usbcali.HollowBank.domain.Usuario;
 import co.edu.usbcali.HollowBank.dto.UsuarioDTO;
+import co.edu.usbcali.HollowBank.dto.UsuarioDTO;
+import co.edu.usbcali.HollowBank.mapper.UsuarioMapper;
 import co.edu.usbcali.HollowBank.mapper.UsuarioMapper;
 import co.edu.usbcali.HollowBank.repository.UsuarioRepository;
 import co.edu.usbcali.HollowBank.service.UsuarioService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,11 +29,11 @@ public class UsuarioSericeImpl implements UsuarioService {
         }
 
         if(usuarioDTO.getNombre() == null || usuarioDTO.getNombre().trim().isEmpty()){
-            throw new Exception("Nombre Vacio");
+            throw new Exception("Debe ingresar el nombre del usuario");
         }
 
         if(usuarioDTO.getApellido() == null || usuarioDTO.getApellido().trim().isEmpty()){
-            throw new Exception("Apellido Vacio");
+            throw new Exception("Debe ingresar el Apellido del usuario");
         }
 
         if(usuarioDTO.getDireccion() == null || usuarioDTO.getDireccion().trim().isEmpty()){
@@ -39,6 +42,10 @@ public class UsuarioSericeImpl implements UsuarioService {
 
         if(usuarioDTO.getTelefono() == null || usuarioDTO.getTelefono().trim().isEmpty()){
             throw new Exception("Telefono Vacio");
+        }
+
+        if(usuarioDTO.getPassword() == null || usuarioDTO.getPassword().trim().isEmpty()){
+            throw new Exception("Ingresa la contraseña del usuario");
         }
 
         Optional<Usuario> usuarioPorNombre = usuarioRepository.findUsuarioByNombre(usuarioDTO.getNombre());
@@ -59,4 +66,20 @@ public class UsuarioSericeImpl implements UsuarioService {
 
 
     }
+    public List<UsuarioDTO> buscarTodos() {
+        return UsuarioMapper.domainToDtoList(usuarioRepository.findAll());
+    }
+
+    @Override
+    public void eliminarUsuarioPorId(Integer id) throws Exception {
+
+        Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
+        if (usuarioOptional.isEmpty()) {
+            throw new Exception("El usuario con el ID " + id + " no se encuentra registrado.");
+        }
+
+        usuarioRepository.deleteById(id);
+    }
+
+
 }

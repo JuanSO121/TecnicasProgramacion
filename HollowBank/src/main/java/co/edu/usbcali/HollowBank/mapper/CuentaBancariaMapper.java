@@ -10,8 +10,7 @@ public class CuentaBancariaMapper {
         return CuentaBancaria.builder()
                 .id(cuentaBancariaDTO.getId())
                 //.usuario(cuentaBancariaDTO.getUsuario())
-                .nombre(cuentaBancariaDTO.getNombre())
-                .apellido(cuentaBancariaDTO.getApellido())
+                .tipo(cuentaBancariaDTO.getTipo())
                 .saldo(cuentaBancariaDTO.getSaldo())
                 .build();
     }
@@ -21,11 +20,8 @@ public class CuentaBancariaMapper {
                 .id(cuentaBancaria.getId())
                 .usuarioId((cuentaBancaria.getUsuario() == null) ? null :
                         cuentaBancaria.getUsuario().getId())
-                .nombre(cuentaBancaria.getNombre())
-                .apellido(cuentaBancaria.getApellido())
+                .tipo(cuentaBancaria.getTipo())
                 .saldo(cuentaBancaria.getSaldo())
-                .administradorId((cuentaBancaria.getAdministrador() == null) ? null :
-                        cuentaBancaria.getAdministrador().getId())
                 .build();
     }
 

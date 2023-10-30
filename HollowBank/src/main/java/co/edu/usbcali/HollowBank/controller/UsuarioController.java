@@ -13,35 +13,30 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/usuario")
-public class UsuarioController {
 
+public class UsuarioController {
     private final UsuarioService usuarioService;
     private final UsuarioRepository usuarioRepository;
-
 
     public UsuarioController(UsuarioService usuarioService, UsuarioRepository usuarioRepository) {
         this.usuarioService = usuarioService;
         this.usuarioRepository = usuarioRepository;
     }
 
-    @GetMapping("/validar")
-    public String validarController() {
-        return "Controlador Correcto";
-    }
-
-    @GetMapping("/obtenerTodos")
-    //@ResponseBody
-    //Spring Boot automáticamente serializará la lista de objetos Usuario en formato JSON y los enviará como respuesta
-    public List<Usuario> obtenerTodos(){
-        return usuarioRepository.findAll();
+    @GetMapping("/buscarTodos")
+    public ResponseEntity<List<UsuarioDTO>> buscarTodos(){
+        return new ResponseEntity<>(usuarioService.buscarTodos(), HttpStatus.OK);
     }
 
     @PostMapping("/guardar")
-    public ResponseEntity<UsuarioDTO> guardarUsuario(@RequestBody UsuarioDTO usuarioDTO) throws Exception {
-
+    public ResponseEntity<UsuarioDTO> guardarUsuario(@RequestBody UsuarioDTO usuarioDTO) throws Exception{
         UsuarioDTO usuarioDTO1 = usuarioService.guardarNuevoUsuario(usuarioDTO);
-
         return new ResponseEntity<>(usuarioDTO1, HttpStatus.OK);
+    }
+
+    @GetMapping("/validar")
+    public String validarController() {
+        return "Controlador Correcto";
     }
 
     @GetMapping("/porId/{id}")
@@ -68,4 +63,11 @@ public class UsuarioController {
         return ResponseEntity.ok(respuesta);
 
     }
+
+    @DeleteMapping("/eliminarPorId/{id}")
+    public ResponseEntity<String> eliminarUsuarioPorId(@PathVariable Integer id) throws Exception {
+        usuarioService.eliminarUsuarioPorId(id);
+        return ResponseEntity.ok("Usuario con ID " + id + " eliminado correctamente.");
+    }
+
 }

@@ -28,6 +28,9 @@ public class Usuario {
 
     @Column(nullable = false, length = 10)
     private String telefono;
+
+    @Column(nullable = false, length = 50)
+    private String password;
 /*
     @OneToMany(mappedBy = "usuario")
     private List<CuentaBancaria> cuentasBancarias;

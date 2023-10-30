@@ -15,6 +15,7 @@ public class UsuarioMapper {
                 .apellido(usuarioDTO.getApellido())
                 .direccion(usuarioDTO.getDireccion())
                 .telefono(usuarioDTO.getTelefono())
+                .password(usuarioDTO.getPassword())
                 .build();
     }
 
@@ -25,13 +26,9 @@ public class UsuarioMapper {
                 .apellido(usuario.getApellido())
                 .direccion(usuario.getDireccion())
                 .telefono(usuario.getTelefono())
+                .password(usuario.getPassword())
                 .build();
     }
-
-    public static List<Usuario> dtoToDomainList(List<UsuarioDTO> usuarioDTOS){
-        return usuarioDTOS.stream().map(UsuarioMapper::dtoToDomain).toList();
-    }
-
     public static List<UsuarioDTO> domainToDtoList(List<Usuario> usuarios){
         return usuarios.stream().map(UsuarioMapper::domainToDto).toList();
     }
