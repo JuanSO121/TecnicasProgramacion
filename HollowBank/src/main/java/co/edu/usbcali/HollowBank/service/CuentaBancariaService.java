@@ -8,4 +8,6 @@ public interface CuentaBancariaService {
     CuentaBancariaDTO guardarNuevaCuentaBancaria(CuentaBancariaDTO cuentaBancariaDTO) throws Exception;
 
     List<CuentaBancariaDTO> buscarTodas();
+    void eliminarCuentasPorUsuario(Integer userId) throws Exception;
+
 }

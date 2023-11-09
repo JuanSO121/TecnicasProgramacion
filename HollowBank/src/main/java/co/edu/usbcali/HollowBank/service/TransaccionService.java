@@ -1,11 +1,14 @@
 package co.edu.usbcali.HollowBank.service;
 
-import co.edu.usbcali.HollowBank.dto.PagoServicioDTO;
 import co.edu.usbcali.HollowBank.dto.TransaccionDTO;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface TransaccionService {
-    public TransaccionDTO guardarNuevaTransaccion(TransaccionDTO transaccionDTO)throws Exception;
+    TransaccionDTO guardarNuevaTransaccion(TransaccionDTO transaccionDTO) throws Exception;
+    void realizarTransferencia(Integer cuentaOrigenId, Integer cuentaDestinoId, BigDecimal monto) throws Exception;
     List<TransaccionDTO> buscarTodas();
+
 }
+

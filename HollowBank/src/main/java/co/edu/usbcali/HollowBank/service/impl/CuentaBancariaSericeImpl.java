@@ -61,5 +61,18 @@ public class CuentaBancariaSericeImpl implements CuentaBancariaService {
         return CuentaBancariaMapper.domainToDtoList(cuentaBancariaRepository.findAll());
     }
 
+    @Override
+    public void eliminarCuentasPorUsuario(Integer userId) throws Exception {
+        // Check if there are bank accounts associated with the user.
+        List<CuentaBancaria> cuentasDelUsuario = cuentaBancariaRepository.findByUsuarioId(userId);
+
+        if (!cuentasDelUsuario.isEmpty()) {
+            // Delete the associated bank accounts.
+            cuentaBancariaRepository.deleteAll(cuentasDelUsuario);
+        }
+    }
+
+
+
 
 }

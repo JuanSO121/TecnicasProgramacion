@@ -4,8 +4,6 @@ import co.edu.usbcali.HollowBank.domain.CuentaBancaria;
 import co.edu.usbcali.HollowBank.domain.Transaccion;
 import co.edu.usbcali.HollowBank.domain.Usuario;
 import co.edu.usbcali.HollowBank.dto.TransaccionDTO;
-import co.edu.usbcali.HollowBank.dto.TransaccionDTO;
-import co.edu.usbcali.HollowBank.mapper.TransaccionMapper;
 import co.edu.usbcali.HollowBank.mapper.TransaccionMapper;
 import co.edu.usbcali.HollowBank.repository.CuentaBancariaRepository;
 import co.edu.usbcali.HollowBank.repository.TransaccionRepository;
@@ -96,4 +94,41 @@ public class TransaccionSericeImpl implements TransaccionService {
     public List<TransaccionDTO> buscarTodas(){
         return TransaccionMapper.domainToDtoList(transaccionRepository.findAll());
     }
+
+    @Override
+    public void realizarTransferencia(Integer cuentaBancariaId, Integer destinatarioId, BigDecimal monto) throws Exception {
+        Optional<CuentaBancaria> cuentaOrigenOptional = cuentaBancariaRepository.findById(cuentaBancariaId);
+        Optional<CuentaBancaria> cuentaDestinoOptional = cuentaBancariaRepository.findById(destinatarioId);
+
+        if (cuentaOrigenOptional.isEmpty() || cuentaDestinoOptional.isEmpty()) {
+            throw new Exception("Cuentas de origen o destino no encontradas.");
+        }
+
+        CuentaBancaria cuentaOrigen = cuentaOrigenOptional.get();
+        CuentaBancaria cuentaDestino = getCuentaDestino(destinatarioId);
+
+        // Validar que el saldo sea suficiente para la transferencia
+        if (cuentaOrigen.getSaldo().compareTo(monto) < 0) {
+            throw new Exception("Saldo insuficiente para realizar la transferencia.");
+        }
+
+        // Validar que la cuenta de origen y destino son diferentes
+        if (cuentaOrigen.getId().equals(cuentaDestino.getId())) {
+            throw new Exception("La cuenta de origen y destino deben ser diferentes.");
+        }
+
+        // Realizar la transferencia
+        cuentaOrigen.setSaldo(cuentaOrigen.getSaldo().subtract(monto));
+        cuentaBancariaRepository.save(cuentaOrigen);
+
+        cuentaDestino.setSaldo(cuentaDestino.getSaldo().add(monto));
+        cuentaBancariaRepository.save(cuentaDestino);
+    }
+
+    private CuentaBancaria getCuentaDestino(Integer destinatarioId) throws Exception {
+        return cuentaBancariaRepository.findById(destinatarioId)
+                .orElseThrow(() -> new Exception(String.format("No se puede realizar la transacción pues no existe la cuenta bancaria de destino: %s", destinatarioId)));
+    }
+
+
 }

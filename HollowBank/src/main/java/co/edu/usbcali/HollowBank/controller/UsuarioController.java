@@ -5,6 +5,7 @@ import co.edu.usbcali.HollowBank.dto.UsuarioDTO;
 import co.edu.usbcali.HollowBank.mapper.UsuarioMapper;
 import co.edu.usbcali.HollowBank.repository.UsuarioRepository;
 import co.edu.usbcali.HollowBank.service.UsuarioService;
+import co.edu.usbcali.HollowBank.service.CuentaBancariaService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +17,13 @@ import java.util.List;
 
 public class UsuarioController {
     private final UsuarioService usuarioService;
+
+    private final CuentaBancariaService cuentaBancariaService;
     private final UsuarioRepository usuarioRepository;
 
-    public UsuarioController(UsuarioService usuarioService, UsuarioRepository usuarioRepository) {
+    public UsuarioController(UsuarioService usuarioService, CuentaBancariaService cuentaBancariaService, UsuarioRepository usuarioRepository) {
         this.usuarioService = usuarioService;
+        this.cuentaBancariaService = cuentaBancariaService;
         this.usuarioRepository = usuarioRepository;
     }
 
@@ -66,8 +70,14 @@ public class UsuarioController {
 
     @DeleteMapping("/eliminarPorId/{id}")
     public ResponseEntity<String> eliminarUsuarioPorId(@PathVariable Integer id) throws Exception {
+        // Delete associated bank accounts.
+        cuentaBancariaService.eliminarCuentasPorUsuario(id);
+
+        // Delete the user.
         usuarioService.eliminarUsuarioPorId(id);
-        return ResponseEntity.ok("Usuario con ID " + id + " eliminado correctamente.");
+
+        return ResponseEntity.ok("Usuario con ID " + id + " eliminado correctamente junto con sus cuentas bancarias asociadas.");
     }
+
 
 }

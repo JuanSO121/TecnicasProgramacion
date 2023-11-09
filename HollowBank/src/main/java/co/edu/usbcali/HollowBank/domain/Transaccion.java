@@ -35,7 +35,7 @@ public class Transaccion {
     @JoinColumn(name = "destinatario_id", referencedColumnName = "id",nullable = false)
     private Usuario destinatario;
 
-    @Column(length = 19, precision = 2, nullable = false)
+    @Column(name = "monto", precision = 19, scale = 2)
     private BigDecimal monto;
 
     @Column(length = 10, nullable = false)
@@ -47,6 +47,6 @@ public class Transaccion {
     @Column(length = 10, nullable = false)
     private String estado;
 
-    @Column(nullable = false, length = 10)
+    @Column(length = 10)
     private String referencia;
 }
