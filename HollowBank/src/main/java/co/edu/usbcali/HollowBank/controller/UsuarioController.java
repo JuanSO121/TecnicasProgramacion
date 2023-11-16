@@ -79,5 +79,17 @@ public class UsuarioController {
         return ResponseEntity.ok("Usuario con ID " + id + " eliminado correctamente junto con sus cuentas bancarias asociadas.");
     }
 
+    @PutMapping("/actualizar")
+    public ResponseEntity<UsuarioDTO> actualizarUsuario(@RequestBody UsuarioDTO usuarioDTO) throws Exception {
+        UsuarioDTO usuarioActualizado = usuarioService.actualizarUsuario(usuarioDTO);
+        return new ResponseEntity<>(usuarioActualizado, HttpStatus.OK);
+    }
 
+    @GetMapping("/existePorIdYContraseña/{id}/{password}")
+    public ResponseEntity<Boolean> existeUsuarioPorIdYContraseña(
+            @PathVariable Integer id,
+            @PathVariable String password) {
+        boolean existe = usuarioService.existeUsuarioPorIdYContraseña(id, password);
+        return new ResponseEntity<>(existe, HttpStatus.OK);
+    }
 }

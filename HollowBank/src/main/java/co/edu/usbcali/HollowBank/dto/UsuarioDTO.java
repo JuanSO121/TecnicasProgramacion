@@ -22,4 +22,8 @@ public class UsuarioDTO {
 
     private String password;
 
+    private String newDireccion;
+    private String newTel;
+    private String newPassword;
+
 }

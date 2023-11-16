@@ -2,8 +2,6 @@ package co.edu.usbcali.HollowBank.service.impl;
 
 import co.edu.usbcali.HollowBank.domain.Usuario;
 import co.edu.usbcali.HollowBank.dto.UsuarioDTO;
-import co.edu.usbcali.HollowBank.dto.UsuarioDTO;
-import co.edu.usbcali.HollowBank.mapper.UsuarioMapper;
 import co.edu.usbcali.HollowBank.mapper.UsuarioMapper;
 import co.edu.usbcali.HollowBank.repository.UsuarioRepository;
 import co.edu.usbcali.HollowBank.service.UsuarioService;
@@ -79,6 +77,56 @@ public class UsuarioSericeImpl implements UsuarioService {
         }
 
         usuarioRepository.deleteById(id);
+    }
+
+    @Override
+    public UsuarioDTO actualizarUsuario(UsuarioDTO usuarioDTO) throws Exception {
+
+        if (usuarioDTO.getPassword() == null || usuarioDTO.getPassword().trim().isEmpty()) {
+            throw new Exception("Debe proporcionar la contraseña actual para actualizar la información del usuario.");
+        }
+
+        Optional<Usuario> usuarioOptional = usuarioRepository.findById(usuarioDTO.getId());
+        if (usuarioOptional.isEmpty()) {
+            throw new Exception("El usuario no se encuentra registrado.");
+        }
+
+        Usuario usuario = getUsuario(usuarioDTO, usuarioOptional);
+
+        // Puedes agregar más campos para actualizar según sea necesario
+
+        usuarioRepository.save(usuario);
+
+        return UsuarioMapper.domainToDto(usuario);
+    }
+
+    private static Usuario getUsuario(UsuarioDTO usuarioDTO, Optional<Usuario> usuarioOptional) throws Exception {
+        Usuario usuario = usuarioOptional.get();
+
+        // Verificar que la contraseña proporcionada coincida con la contraseña actual del usuario
+        if (!usuarioDTO.getPassword().equals(usuario.getPassword())) {
+            throw new Exception("La contraseña proporcionada no es válida.");
+        }
+
+        // Actualizar la información del usuario
+        if (usuarioDTO.getNewDireccion() != null && !usuarioDTO.getNewDireccion().isEmpty()) {
+            usuario.setDireccion(usuarioDTO.getNewDireccion());
+        }
+
+        if (usuarioDTO.getNewTel() != null && !usuarioDTO.getNewTel().isEmpty()) {
+            usuario.setTelefono(usuarioDTO.getNewTel());
+        }
+
+        if (usuarioDTO.getNewPassword() != null && !usuarioDTO.getNewPassword().isEmpty()) {
+            usuario.setPassword(usuarioDTO.getNewPassword());
+        }
+        return usuario;
+    }
+
+    @Override
+    public boolean existeUsuarioPorIdYContraseña(Integer id, String password) {
+        Optional<Usuario> usuarioOptional = usuarioRepository.findByIdAndPassword(id, password);
+        return usuarioOptional.isPresent();
     }
 
 

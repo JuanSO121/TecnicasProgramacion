@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/transaccion")
@@ -36,10 +37,25 @@ public class TransaccionController {
             @PathVariable BigDecimal monto
     ) {
         try {
-            transaccionService.realizarTransferencia(cuentaBancariaId, destinatarioId, monto);
+            transaccionService.realizarTransferenciaPrueba(cuentaBancariaId, destinatarioId, monto);
             return ResponseEntity.ok("Transferencia realizada correctamente.");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al realizar la transferencia: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/transferencia")
+    public ResponseEntity<TransaccionDTO> transferencia(
+            @RequestBody Map<String, Object> params) {
+        Integer cuentaBancariaId = (Integer) params.get("cuentaBancariaId");
+        BigDecimal monto = new BigDecimal(params.get("monto").toString());
+        Integer destinatarioId = (Integer) params.get("destinatarioId");
+
+        try {
+            TransaccionDTO transaccionDTO = transaccionService.transferencia(cuentaBancariaId, monto, destinatarioId);
+            return new ResponseEntity<>(transaccionDTO, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

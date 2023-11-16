@@ -6,10 +6,13 @@ import co.edu.usbcali.HollowBank.dto.UsuarioDTO;
 import java.util.List;
 
 public interface UsuarioService {
-    public UsuarioDTO guardarNuevoUsuario(UsuarioDTO usuarioDTO) throws Exception;
+    UsuarioDTO guardarNuevoUsuario(UsuarioDTO usuarioDTO) throws Exception;
 
     List<UsuarioDTO> buscarTodos();
 
     void eliminarUsuarioPorId(Integer id) throws Exception;
 
+    UsuarioDTO actualizarUsuario(UsuarioDTO usuarioDTO) throws Exception;
+
+    boolean existeUsuarioPorIdYContraseña(Integer id, String password);
 }

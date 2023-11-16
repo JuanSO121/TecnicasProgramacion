@@ -10,6 +10,7 @@ import co.edu.usbcali.HollowBank.repository.TransaccionRepository;
 import co.edu.usbcali.HollowBank.repository.UsuarioRepository;
 import co.edu.usbcali.HollowBank.service.TransaccionService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -96,7 +97,7 @@ public class TransaccionSericeImpl implements TransaccionService {
     }
 
     @Override
-    public void realizarTransferencia(Integer cuentaBancariaId, Integer destinatarioId, BigDecimal monto) throws Exception {
+    public void realizarTransferenciaPrueba(Integer cuentaBancariaId, Integer destinatarioId, BigDecimal monto) throws Exception {
         Optional<CuentaBancaria> cuentaOrigenOptional = cuentaBancariaRepository.findById(cuentaBancariaId);
         Optional<CuentaBancaria> cuentaDestinoOptional = cuentaBancariaRepository.findById(destinatarioId);
 
@@ -129,6 +130,45 @@ public class TransaccionSericeImpl implements TransaccionService {
         return cuentaBancariaRepository.findById(destinatarioId)
                 .orElseThrow(() -> new Exception(String.format("No se puede realizar la transacción pues no existe la cuenta bancaria de destino: %s", destinatarioId)));
     }
+
+    @Override
+    @Transactional
+    public TransaccionDTO transferencia(Integer cuentaBancariaId, BigDecimal monto, Integer destinatarioId) throws Exception {
+        // Obtener la cuenta bancaria del usuario que realiza la transferencia
+        CuentaBancaria cuentaBancariaOrigen = cuentaBancariaRepository.findById(cuentaBancariaId)
+                .orElseThrow(() -> new Exception("No se puede realizar la transferencia, la cuenta bancaria del usuario de origen no existe."));
+
+        // Obtener la cuenta bancaria del destinatario
+        CuentaBancaria cuentaBancariaDestino = cuentaBancariaRepository.findById(destinatarioId)
+                .orElseThrow(() -> new Exception(String.format("No se puede realizar la transferencia, la cuenta bancaria del destinatario con ID %s no existe.", destinatarioId)));
+
+        // Verificar que haya saldo suficiente en la cuenta de origen
+        if (cuentaBancariaOrigen.getSaldo().compareTo(monto) < 0) {
+            throw new Exception("No hay saldo suficiente para realizar la transferencia.");
+        }
+
+        // Actualizar saldos de cuentas
+        cuentaBancariaOrigen.setSaldo(cuentaBancariaOrigen.getSaldo().subtract(monto));
+        cuentaBancariaDestino.setSaldo(cuentaBancariaDestino.getSaldo().add(monto));
+
+        // Guardar transacción de transferencia
+        Transaccion transaccion = new Transaccion();
+        transaccion.setMonto(monto);
+        transaccion.setTipo("TRANSFERENCIA");
+        transaccion.setEstado("COMPLETADA");
+        transaccion.setReferencia("Transferencia de " + cuentaBancariaOrigen.getId() + " a " + cuentaBancariaDestino.getId());
+        transaccion.setCuentaBancaria(cuentaBancariaOrigen);
+        transaccion.setDestinatario(cuentaBancariaDestino.getUsuario());
+        transaccionRepository.save(transaccion);
+
+        // Actualizar las cuentas bancarias en la base de datos
+        cuentaBancariaRepository.saveAll(List.of(cuentaBancariaOrigen, cuentaBancariaDestino));
+
+        // Retornar la transacción de transferencia
+        return TransaccionMapper.domainToDto(transaccion);
+    }
+
+
 
 
 }
