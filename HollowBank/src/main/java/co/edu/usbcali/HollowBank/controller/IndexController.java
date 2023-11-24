@@ -104,6 +104,33 @@ public class IndexController {
         }
     }
 
+    @GetMapping("/signup")
+    public String showSignupPage(Model model) {
+        model.addAttribute("usuarioDTO", new UsuarioDTO());
+        return "signup";
+    }
+
+    @PostMapping("/signup")
+    public String handleSignup(@Valid @ModelAttribute UsuarioDTO usuarioDTO, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+        // ...
+        if (bindingResult.hasErrors()) {
+            // Si hay errores de validación, vuelve a mostrar el formulario con los errores
+            return "signup";
+        }
+
+        try {
+            // Guardar el usuario en la base de datos (usando el servicio de usuario)
+            usuarioService.guardarNuevoUsuario(usuarioDTO);
+
+            // Redireccionar a la página de inicio de sesión con un mensaje de éxito
+            redirectAttributes.addFlashAttribute("successMessage", "¡Registro exitoso! Por favor, inicia sesión.");
+            return "redirect:/login";
+        } catch (Exception e) {
+            model.addAttribute("error", "Error al procesar el registro.");
+            return "signup";
+        }
+    }
+
     @GetMapping("/borrarCuenta/{cuentaId}")
     public String borrarCuenta(@PathVariable Long cuentaId, HttpSession session, RedirectAttributes redirectAttributes) {
         try {
