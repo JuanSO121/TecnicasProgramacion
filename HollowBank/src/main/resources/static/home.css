@@ -1,0 +1,66 @@
+/* Agrega estilos generales para el cuerpo y la fuente */
+body {
+    margin: 0;
+    padding: 0;
+    background: url('/images/background.png') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+
+/* Estilos para la barra de navegación */
+.navbar {
+    background-color: #007bff; /* Color de fondo de la barra de navegación */
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: #ffffff; /* Color de texto de los enlaces de navegación */
+}
+
+.navbar-dark .navbar-toggler-icon {
+    background-color: #ffffff; /* Color del ícono del botón de navegación en pantallas pequeñas */
+}
+
+/* Estilos para las tarjetas */
+.card {
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra de las tarjetas */
+}
+
+.card-header {
+    background-color: #007bff; /* Color de fondo del encabezado de la tarjeta */
+    color: #ffffff; /* Color del texto del encabezado de la tarjeta */
+}
+
+/* Estilos específicos para la tarjeta de saldo */
+#saldo {
+    color: #007bff; /* Color del texto del saldo */
+}
+
+/* Estilos para los botones */
+.btn-primary {
+    background-color: #007bff; /* Color de fondo del botón primario */
+    border-color: #007bff; /* Color del borde del botón primario */
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Color de fondo del botón primario al pasar el mouse */
+    border-color: #0056b3; /* Color del borde del botón primario al pasar el mouse */
+}
+
+/* Estilos para el contenedor de información del usuario */
+.container mt-5 {
+    background-color: #ffffff; /* Color de fondo del contenedor de información del usuario */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra del contenedor de información del usuario */
+}
+
+/* Estilos para los modales */
+.modal-content {
+    background-color: #ffffff; /* Color de fondo del contenido del modal */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra del contenido del modal */
+}

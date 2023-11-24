@@ -14,4 +14,6 @@ public interface CuentaBancariaRepository extends JpaRepository<CuentaBancaria, 
     void deleteByUsuarioId(Integer usuarioId);
 
     List<CuentaBancaria> findByUsuarioId(Integer userId);
+
+    Optional<CuentaBancaria> findCuentaById(Integer cuentaBancariaId);
 }

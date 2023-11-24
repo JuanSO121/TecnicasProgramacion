@@ -14,5 +14,7 @@ public interface UsuarioService {
 
     UsuarioDTO actualizarUsuario(UsuarioDTO usuarioDTO) throws Exception;
 
-    boolean existeUsuarioPorIdYContraseña(Integer id, String password);
+    boolean existeUsuarioPorIdYContrasena(Integer id, String password);
+
+
 }

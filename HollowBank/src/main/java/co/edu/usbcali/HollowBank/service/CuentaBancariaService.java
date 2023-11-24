@@ -10,4 +10,5 @@ public interface CuentaBancariaService {
     List<CuentaBancariaDTO> buscarTodas();
     void eliminarCuentasPorUsuario(Integer userId) throws Exception;
 
+    List<CuentaBancariaDTO> obtenerCuentasPorUsuario(Integer id);
 }

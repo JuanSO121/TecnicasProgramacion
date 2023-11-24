@@ -1,5 +1,6 @@
 package co.edu.usbcali.HollowBank.controller;
 
+import ch.qos.logback.core.model.Model;
 import co.edu.usbcali.HollowBank.domain.Usuario;
 import co.edu.usbcali.HollowBank.dto.UsuarioDTO;
 import co.edu.usbcali.HollowBank.mapper.UsuarioMapper;
@@ -85,11 +86,19 @@ public class UsuarioController {
         return new ResponseEntity<>(usuarioActualizado, HttpStatus.OK);
     }
 
-    @GetMapping("/existePorIdYContraseña/{id}/{password}")
-    public ResponseEntity<Boolean> existeUsuarioPorIdYContraseña(
+    @PutMapping("/newPassword")
+    public ResponseEntity<UsuarioDTO> cambiarContrasena(@RequestBody UsuarioDTO usuarioDTO) throws Exception {
+        UsuarioDTO usuarioActualizado = usuarioService.actualizarUsuario(usuarioDTO);
+        return new ResponseEntity<>(usuarioActualizado, HttpStatus.OK);
+    }
+
+    @GetMapping("/login/{id}/{password}")
+    public ResponseEntity<Boolean> existeUsuarioPorIdYContrasena(
             @PathVariable Integer id,
             @PathVariable String password) {
-        boolean existe = usuarioService.existeUsuarioPorIdYContraseña(id, password);
+        boolean existe = usuarioService.existeUsuarioPorIdYContrasena(id, password);
         return new ResponseEntity<>(existe, HttpStatus.OK);
     }
+
+
 }

@@ -38,11 +38,17 @@ public class TransaccionController {
     ) {
         try {
             transaccionService.realizarTransferenciaPrueba(cuentaBancariaId, destinatarioId, monto);
-            return ResponseEntity.ok("Transferencia realizada correctamente.");
+
+            // Mensaje con información sobre la transferencia
+            String mensaje = String.format("Transferencia de la cuenta %d a la cuenta %d por un monto de %s realizada correctamente.",
+                    cuentaBancariaId, destinatarioId, monto.toString());
+
+            return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al realizar la transferencia: " + e.getMessage());
         }
     }
+
 
     @PostMapping("/transferencia")
     public ResponseEntity<TransaccionDTO> transferencia(

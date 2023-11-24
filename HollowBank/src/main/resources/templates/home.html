@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MI CUENTA</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="static/css/home.css" th:href="@{/static/home.css}">
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-smart static-top">
+    <div class="container">
+        <!-- Navbar content -->
+    </div>
+</nav>
+
+<!-- Saldo Card -->
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12 col-lg-6 col-md-8 mx-auto">
+            <div class="card border-smart">
+                <div class="card-header bg-smart text">
+                    <div class="form-inline justify-content-center">
+                        <h1>Saldo</h1>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-inline justify-content-center">
+                        <h1 class="mr-3" id="saldo">R$ [[${saldoActual}]]</h1>
+                        <img src="images/kisspng-eye-computer-icons-clip-art-responsive-vector-5ad9be6419d181.1961868815242194921058.png" id="btnHide" height="25px" width="25px" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Operaciones Card -->
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12 col-lg-6 col-md-6">
+            <div class="card mt-5 border-smart">
+                <div class="card-header bg-smart text">
+                    <h1>Extrato</h1>
+                </div>
+                <div class="card-body">
+                    <!-- Contenido del card Extrato -->
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6 col-md-6">
+            <div class="card mt-5 border-smart" style="height: 274px;">
+                <div class="card-header bg-smart text">
+                    <h1>OPERACIONES</h1>
+                </div>
+                <div class="card-body">
+                    <!-- Botones de operaciones -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Información del Usuario -->
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="card border-smart p-5">
+                <div class="container">
+                    <!-- Contenido del card de información del usuario -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modales -->
+<!-- Modal Pagar -->
+<div id="myModal" class="modal fade" role="dialog">
+    <!-- Contenido del modal Pagar -->
+</div>
+
+<!-- Modal Deposito -->
+<div id="ModalDeposito" class="modal fade" role="dialog">
+    <!-- Contenido del modal Deposito -->
+</div>
+
+<!-- Modal Transferencia -->
+<div id="ModalTransferencia" class="modal fade" role="dialog">
+    <!-- Contenido del modal Transferencia -->
+</div>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+
+</html>

@@ -72,6 +72,14 @@ public class CuentaBancariaSericeImpl implements CuentaBancariaService {
         }
     }
 
+    @Override
+    public List<CuentaBancariaDTO> obtenerCuentasPorUsuario(Integer usuarioId) {
+        // Buscar las cuentas bancarias por el ID del usuario
+        List<CuentaBancaria> cuentasBancarias = cuentaBancariaRepository.findByUsuarioId(usuarioId);
+
+        // Convertir las cuentas bancarias a DTOs
+        return CuentaBancariaMapper.domainToDtoList(cuentasBancarias);
+    }
 
 
 

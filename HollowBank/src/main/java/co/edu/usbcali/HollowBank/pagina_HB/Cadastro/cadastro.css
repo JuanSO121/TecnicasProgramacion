@@ -1,0 +1,20 @@
+.bg-smart{
+    background-color: rgb(86, 9, 122);
+}
+
+.text-smart{
+    color: rgb(86, 9, 122);
+}
+input:focus,input:active,input::placeholder,input::content{
+    color: #56097a;
+}
+
+.border-smart{
+    border: 1px solid rgb(86, 9, 122);
+}
+
+.form-control:focus {
+    outline: 0 !important;
+    border-color: initial;
+    box-shadow: none;
+}
