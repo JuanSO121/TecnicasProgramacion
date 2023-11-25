@@ -60,46 +60,22 @@ public class IndexController {
 
 
     @GetMapping("/home")
-    public String showHomePage(HttpSession session, Model model) {
+    public String showHomePage(HttpSession session, Model model) throws Exception {
         Integer userId = (Integer) session.getAttribute("userId");
 
         if (userId != null) {
-            // Realiza otras consultas o lógica según sea necesario usando el userId
+            // Obtén el usuario y las cuentas bancarias asociadas
+            UsuarioDTO usuarioDTO = usuarioService.obtenerUsuarioPorId(userId);
+            List<CuentaBancariaDTO> cuentasBancarias = cuentaBancariaService.obtenerCuentasPorUsuario(userId);
 
-            // Añade datos al modelo para ser utilizados en la página
-            model.addAttribute("userId", userId);
+            // Agrega los datos al modelo
+            model.addAttribute("usuario", usuarioDTO);
+            model.addAttribute("cuentasBancarias", cuentasBancarias);
 
             return "home";
         } else {
             // Manejar el caso en el que el atributo de sesión userId no esté presente
             model.addAttribute("error", "El atributo de sesión userId no está presente.");
-            return "error";
-        }
-    }
-
-
-
-    @GetMapping("/cliente")
-    public String mostrarPaginaCliente(HttpSession session, Model model) {
-        try {
-            // Obtener el usuario de la sesión
-            UsuarioDTO usuarioDTO = (UsuarioDTO) session.getAttribute("usuario");
-
-            // Verificar si el usuario está en la sesión
-            if (usuarioDTO != null) {
-                // Obtener la información de las cuentas bancarias asociadas al usuario
-                List<CuentaBancariaDTO> cuentasBancarias = cuentaBancariaService.obtenerCuentasPorUsuario(usuarioDTO.getId());
-
-                // Agregar las cuentas bancarias al modelo
-                model.addAttribute("cuentasBancarias", cuentasBancarias);
-
-                return "cliente";
-            } else {
-                // Manejar el caso en el que el usuario no esté en la sesión
-                return "redirect:/login";
-            }
-        } catch (Exception e) {
-            model.addAttribute("error", "Error al procesar la página del cliente.");
             return "error";
         }
     }
@@ -124,26 +100,119 @@ public class IndexController {
 
             // Redireccionar a la página de inicio de sesión con un mensaje de éxito
             redirectAttributes.addFlashAttribute("successMessage", "¡Registro exitoso! Por favor, inicia sesión.");
-            return "redirect:/login";
+            return "redirect:/home";
         } catch (Exception e) {
             model.addAttribute("error", "Error al procesar el registro.");
             return "signup";
         }
     }
 
-    @GetMapping("/borrarCuenta/{cuentaId}")
-    public String borrarCuenta(@PathVariable Long cuentaId, HttpSession session, RedirectAttributes redirectAttributes) {
-        try {
-            // Lógica para borrar la cuenta con el id especificado
-            cuentaBancariaService.eliminarCuentasPorUsuario(Math.toIntExact(cuentaId));
 
-            // Redireccionar a la página de cliente con mensaje de éxito
-            redirectAttributes.addFlashAttribute("successMessage", "La cuenta se ha borrado exitosamente.");
-            return "redirect:/cliente";
+
+    @GetMapping("/crear-cuenta")
+    public String showCrearCuentaPage(Model model) {
+        model.addAttribute("cuentaBancariaDTO", new CuentaBancariaDTO());
+        return "crearCuenta";
+    }
+
+    @PostMapping("/crear-cuenta")
+    public String handleCrearCuenta(@Valid @ModelAttribute CuentaBancariaDTO cuentaBancariaDTO, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes, HttpSession session) {
+        try {
+            // Verificamos si hay errores de validación
+            if (bindingResult.hasErrors()) {
+                return "crearCuenta";
+            }
+
+            // Obtener el ID del usuario desde la sesión
+            Integer userId = (Integer) session.getAttribute("userId");
+
+            // Verificar si el usuario está en la sesión
+            if (userId != null) {
+                // Asignar el ID del usuario a la cuenta bancaria
+                cuentaBancariaDTO.setUsuarioId(userId);
+
+                // Guardar la nueva cuenta bancaria en el servicio
+                CuentaBancariaDTO nuevaCuenta = cuentaBancariaService.guardarNuevaCuentaBancaria(cuentaBancariaDTO);
+
+                // Redireccionar a la página del cliente con un mensaje de éxito
+                redirectAttributes.addFlashAttribute("successMessage", "¡Cuenta bancaria creada con éxito!");
+                return "redirect:/home";
+            } else {
+                // Manejar el caso en el que el usuario no esté en la sesión
+                model.addAttribute("error", "No se puede crear la cuenta bancaria. Usuario no encontrado.");
+                return "error";
+            }
         } catch (Exception e) {
-            // Manejar el error y redireccionar a la página de cliente con mensaje de error
-            redirectAttributes.addFlashAttribute("errorMessage", "Error al borrar la cuenta.");
-            return "redirect:/cliente";
+            model.addAttribute("error", "Error al procesar la creación de la cuenta bancaria.");
+            return "error";
+        }
+    }
+
+    @GetMapping("/cambiar-cuenta")
+    public String mostrarCambiarCuentaPage(HttpSession session, Model model) {
+        try {
+            Integer userId = (Integer) session.getAttribute("userId");
+
+            if (userId != null) {
+                // Obtén el usuario y sus cuentas bancarias
+                UsuarioDTO usuarioDTO = usuarioService.obtenerUsuarioPorId(userId);
+                List<CuentaBancariaDTO> cuentasBancarias = cuentaBancariaService.obtenerCuentasPorUsuario(userId);
+
+                // Agrega los datos al modelo
+                model.addAttribute("usuario", usuarioDTO);
+                model.addAttribute("cuentasBancarias", cuentasBancarias);
+
+                // Devuelve la vista para cambiar de cuenta
+                return "cambiar-cuenta";
+            } else {
+                // Manejar el caso en que el atributo de sesión userId no esté presente
+                model.addAttribute("error", "El atributo de sesión userId no está presente.");
+                return "error";
+            }
+        } catch (Exception e) {
+            model.addAttribute("error", "Error al procesar la página para cambiar de cuenta.");
+            return "error";
+        }
+    }
+    @PostMapping("/cambiar-cuenta")
+    public String handleCambiarCuenta(@RequestParam("cuentaId") Integer nuevaCuentaId, HttpSession session, RedirectAttributes redirectAttributes,Model model) {
+        try {
+            Integer userId = (Integer) session.getAttribute("userId");
+
+            if (userId != null) {
+                // Obtener la cuenta actual del usuario
+                UsuarioDTO usuarioDTO = usuarioService.obtenerUsuarioPorId(userId);
+
+                // Verificar si la nueva cuenta pertenece al usuario
+                boolean cuentaPerteneceUsuario = usuarioDTO.getCuentasBancarias()
+                        .stream()
+                        .anyMatch(cuenta -> cuenta.getId().equals(nuevaCuentaId));
+
+                if (cuentaPerteneceUsuario) {
+                    // Obtener la información detallada de la nueva cuenta
+                    CuentaBancariaDTO nuevaCuenta = cuentaBancariaService.obtenerCuentaBancariaPorId(nuevaCuentaId);
+
+                    // Actualizar la cuenta actual del usuario en la sesión
+                    usuarioDTO.setCuentaActualId(nuevaCuentaId);
+
+                    // Actualizar el usuario en la sesión
+                    session.setAttribute("usuario", usuarioDTO);
+
+                    // Redireccionar a la página del cliente con un mensaje de éxito
+                    redirectAttributes.addFlashAttribute("successMessage", "¡Cuenta cambiada con éxito!");
+                    return "redirect:/home";
+                } else {
+                    // Manejar el caso en que la nueva cuenta no pertenece al usuario
+                    model.addAttribute("error", "La nueva cuenta no pertenece al usuario.");
+                    return "error";
+                }
+            } else {
+                // Manejar el caso en que el usuario no esté en la sesión
+                return "redirect:/login";
+            }
+        } catch (Exception e) {
+            // Manejar errores, por ejemplo, redireccionar a una página de error
+            return "redirect:/error";
         }
     }
 }

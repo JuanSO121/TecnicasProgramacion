@@ -84,6 +84,19 @@
         }
 
         @Override
+        public UsuarioDTO obtenerUsuarioPorId(Integer id) throws Exception {
+            Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
+
+            if (usuarioOptional.isPresent()) {
+                return UsuarioMapper.domainToDto(usuarioOptional.get());
+            } else {
+                throw new Exception("El usuario con el ID " + id + " no se encuentra registrado.");
+            }
+        }
+
+
+
+        @Override
         public UsuarioDTO actualizarUsuario(UsuarioDTO usuarioDTO) throws Exception {
 
             if (usuarioDTO.getPassword() == null || usuarioDTO.getPassword().trim().isEmpty()) {

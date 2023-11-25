@@ -71,6 +71,12 @@ public class CuentaBancariaSericeImpl implements CuentaBancariaService {
             cuentaBancariaRepository.deleteAll(cuentasDelUsuario);
         }
     }
+    @Override
+    public boolean cuentaPerteneceUsuario(Integer usuarioId, Integer cuentaId) {
+        Optional<CuentaBancaria> cuentaBancariaOptional = cuentaBancariaRepository.findById(cuentaId);
+
+        return cuentaBancariaOptional.map(cuentaBancaria -> cuentaBancaria.getUsuario().getId().equals(usuarioId)).orElse(false);
+    }
 
     @Override
     public List<CuentaBancariaDTO> obtenerCuentasPorUsuario(Integer usuarioId) {
@@ -81,6 +87,15 @@ public class CuentaBancariaSericeImpl implements CuentaBancariaService {
         return CuentaBancariaMapper.domainToDtoList(cuentasBancarias);
     }
 
+    @Override
+    public CuentaBancariaDTO obtenerCuentaBancariaPorId(Integer cuentaId) throws Exception {
+        Optional<CuentaBancaria> cuentaBancariaOptional = cuentaBancariaRepository.findById(cuentaId);
 
+        if (cuentaBancariaOptional.isEmpty()) {
+            throw new Exception(String.format("No se encontró la cuenta bancaria con ID: %s", cuentaId));
+        }
+
+        return CuentaBancariaMapper.domainToDto(cuentaBancariaOptional.get());
+    }
 
 }

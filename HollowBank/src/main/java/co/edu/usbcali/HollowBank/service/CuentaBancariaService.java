@@ -10,5 +10,10 @@ public interface CuentaBancariaService {
     List<CuentaBancariaDTO> buscarTodas();
     void eliminarCuentasPorUsuario(Integer userId) throws Exception;
 
+    boolean cuentaPerteneceUsuario(Integer usuarioId, Integer cuentaId);
+
     List<CuentaBancariaDTO> obtenerCuentasPorUsuario(Integer id);
+
+    CuentaBancariaDTO obtenerCuentaBancariaPorId(Integer cuentaId) throws Exception;
+
 }

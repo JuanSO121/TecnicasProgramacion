@@ -12,4 +12,3 @@ public interface TransaccionService {
 
     TransaccionDTO transferencia(Integer cuentaOrigenId, BigDecimal monto, Integer cuentaDestinoId) throws Exception;
 }
-

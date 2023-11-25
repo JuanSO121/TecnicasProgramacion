@@ -1,6 +1,6 @@
 package co.edu.usbcali.HollowBank.service;
 
-import co.edu.usbcali.HollowBank.dto.UsuarioDTO;
+import co.edu.usbcali.HollowBank.domain.Usuario;
 import co.edu.usbcali.HollowBank.dto.UsuarioDTO;
 
 import java.util.List;
@@ -16,5 +16,6 @@ public interface UsuarioService {
 
     boolean existeUsuarioPorIdYContrasena(Integer id, String password);
 
-
+    UsuarioDTO obtenerUsuarioPorId(Integer userId) throws Exception;
+    // ...
 }

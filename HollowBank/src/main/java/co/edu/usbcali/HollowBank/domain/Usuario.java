@@ -31,6 +31,14 @@ public class Usuario {
 
     @Column(nullable = false, length = 50)
     private String password;
+
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private CuentaBancaria cuentaBancaria;
+
+    public CuentaBancaria getCuentaBancaria() {
+        return cuentaBancaria;
+    }
+    
 /*
     @OneToMany(mappedBy = "usuario")
     private List<CuentaBancaria> cuentasBancarias;
